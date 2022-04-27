@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UMTEprojekt">
         <activity
-            android:name=".FormSklad"
+            android:name=".SkladService"
             android:exported="false"
             android:label="@string/title_activity_form_sklad"
             android:theme="@style/Theme.UMTEprojekt.NoActionBar" />
