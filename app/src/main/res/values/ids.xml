@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="txtDruhDilu" type="id" />
+    <item name="txtTypDiliu" type="id" />
+    <item name="txtVyrobce" type="id" />
+    <item name="txtPocetKusu" type="id" />
+    <item name="radioVyber" type="id" />
+    <item name="radioNaskladni" type="id" />
+    <item name="radioVyskladni" type="id" />
+    <item name="btnSekenKodu" type="id" />
+    <item name="btnOK" type="id" />
+    <item name="btnVymaz" type="id" />
+    <item name="btnLoginOut" type="id" />
+    <item name="btnVypis" type="id" />
+    <item name="txtNazevDilu" type="id" />
+</resources>

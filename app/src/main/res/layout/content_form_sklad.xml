@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnLoginOut"
+        android:layout_width="145dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:onClick="logout"
+        android:text="@string/odhlasit" />
+
+    <Button
+        android:id="@+id/btnVypis"
+        android:layout_width="145dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="20dp"
+        android:onClick="vypisSklad"
+        android:text="@string/vypi_skladu" />
+
+    <EditText
+        android:id="@+id/txtNazevDilu" android:layout_width="226dp" android:layout_height="48dp"
+        android:layout_marginStart="94dp" android:layout_marginTop="100dp"
+        android:layout_marginEnd="91dp" android:layout_marginBottom="50dp"
+        android:ems="10" android:inputType="textPersonName"
+        android:text="nazev dilu"/>
+
+    <EditText
+        android:id="@+id/txtDruhDilu"
+        android:layout_width="226dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="94dp" android:layout_marginTop="150dp"
+        android:layout_marginEnd="91dp" android:layout_marginBottom="50dp"
+        android:ems="10" android:inputType="textPersonName"
+        android:text="druh dilu"/>
+    <EditText
+        android:id="@+id/txtTypDiliu"
+        android:layout_width="226dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="typ dilu"/>
+    <EditText
+        android:id="@+id/txtVyrobce"
+        android:layout_width="226dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="50dp"
+        android:ems="10" android:inputType=
+        "textPersonName" android:text="vyrobce"/>
+    <EditText
+        android:id="@+id/txtPocetKusu"
+        android:layout_width="226dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="pocet kusu"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@+id/radioVyber"
+        app:layout_anchorGravity="start|top">
+        <RadioButton
+            android:id="@+id/radioNaskladni"
+            android:layout_width="100dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="94dp"
+            android:layout_marginTop="355dp"
+            android:text="RadioButton"/>
+        <RadioButton
+            android:id="@+id/radioVyskladni"
+            android:layout_width="100dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="355dp"
+            android:text="RadioButton"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnSekenKodu"
+        android:layout_width="145dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="410dp"
+        android:onClick="skenovatKod"
+        android:text="Skenovat QR" />
+
+    <Button
+        android:id="@+id/btnOK"
+        android:layout_width="145dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="470dp"
+        android:onClick="odslatFormular"
+        android:text="OK" />
+    <Button
+        android:id="@+id/btnVymaz"
+        android:layout_width="145dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="470dp"
+        android:onClick="vymaz"
+        android:text="Vymaz"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,4 +9,18 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_vypis_skladu">VypisSkladu</string>
+    <string name="title_activity_form_sklad">FormSklad</string>
+    <string name="fromular">fromular</string>
+    <string name="nazev_dilu">nazev dilu</string>
+    <string name="druh_dilu">druh dilu</string>
+    <string name="typ_dilu">typ dilu</string>
+    <string name="vyrobce">vyrobce</string>
+    <string name="vypis_skladu" />
+    <string name="skenovat_qr">Skenovat QR</string>
+    <string name="vymaz">Vymaz</string>
+    <string name="ok">OK</string>
+    <string name="odhlasit">Odhlasit</string>
+    <string name="vypi_skladu">vypi skladu</string>
 </resources>
