@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.umte_projekt" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!--Permission for camera-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!--Permission to vibrate-->
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Permission for camera -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Permission to vibrate -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,13 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UMTEprojekt"
-        android:usesCleartextTraffic="true"
-        >
-
+        android:usesCleartextTraffic="true" >
         <activity
-            android:name=".ActivityReklamace"
+            android:name=".ActivityFormSklad"
             android:exported="false"
-            android:label="@string/title_activity_reklamace"
+            android:label="@string/title_activity_form_skald"
             android:theme="@style/Theme.UMTEprojekt.NoActionBar" />
         <activity
             android:name=".ActivityAdmin"
@@ -49,8 +47,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
 
 </manifest>

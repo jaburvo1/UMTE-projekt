@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
                    String roleString =loginService.login(email, password);
                 System.out.println(roleString);
                 role = Integer.parseInt(roleString);
-                System.out.println(role);
+               // System.out.println(role);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -62,20 +62,21 @@ public class MainActivity extends AppCompatActivity{
         synchronized (this) {
             this.wait(100);
             thread.start();
-
+       //     System.out.println(role);
 
         }
-         System.out.println(role);
+
 
 
 
         switch (role) {
 
+
             case 1:
                 setContentView(R.layout.activity_admin);
                 break;
                 case 2:
-                    setContentView(R.layout.activity_form_sklad);
+                    setContentView(R.layout.activity_form_skald);
                     break;
 
             case 3:
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity{
             default:
                 alertView("spatne zadane prihlaasovaci udaje");
         }
+       // System.out.println(role);
     }
 
 
