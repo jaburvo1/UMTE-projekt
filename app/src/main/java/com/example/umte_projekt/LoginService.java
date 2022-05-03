@@ -43,11 +43,12 @@ private int userId;
         this.userId = userId;
     }
 
-    public void login(String email, String password){
+    public String login(String email, String password){
         System.out.println(email);
         System.out.println(password);
 
-        String url = "http://localhost:8080/login";
+
+        String url = "http://10.135.253.252:8080/loginApp";
 
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
@@ -56,11 +57,9 @@ private int userId;
         post.setHeader("User-Agent", USER_AGENT);
 
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-        urlParameters.add(new BasicNameValuePair("sn", "C02G8416DRJM"));
-        urlParameters.add(new BasicNameValuePair("cn", ""));
-        urlParameters.add(new BasicNameValuePair("locale", ""));
-        urlParameters.add(new BasicNameValuePair("caller", ""));
-        urlParameters.add(new BasicNameValuePair("num", "12345"));
+        urlParameters.add(new BasicNameValuePair("userEmail", "skladnik@skladnik.cz"));
+        urlParameters.add(new BasicNameValuePair("userPassword", "123"));
+
 
         try {
             post.setEntity(new UrlEncodedFormEntity(urlParameters));
@@ -71,11 +70,16 @@ private int userId;
         HttpResponse response = null;
         try {
             response = client.execute(post);
+
+
         } catch (IOException e) {
             //e.printStackTrace();
             response.getStatusLine();
         }
-        System.out.println("\nSending 'POST' request to URL : " + url);
+        catch (Exception e){
+            response.getStatusLine();
+        }
+        System.out.println("Sending 'POST' request to URL : " + url);
         System.out.println("Post parameters : " + post.getEntity());
         System.out.println("Response Code : " +
                 response.getStatusLine().getStatusCode());
@@ -99,7 +103,8 @@ private int userId;
             result.append(line);
         }
 
-        System.out.println(result.toString());
+       // System.out.println(String.valueOf(result));
+        return result.toString();
 
     }
 

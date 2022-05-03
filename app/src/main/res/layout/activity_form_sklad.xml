@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
+
     <Button
         android:id="@+id/btnLoginOut"
         android:layout_width="145dp"
@@ -94,6 +99,7 @@
             android:layout_marginStart="150dp"
             android:layout_marginTop="3dp"
             android:text="vyksladni" />
+
         <RadioButton
             android:id="@+id/radioNovyDil"
             android:layout_width="135dp"
@@ -102,26 +108,27 @@
             android:layout_marginTop="3dp"
             android:text="novyDil" />
 
+        <Button
+            android:id="@+id/btnSekenKodu"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="365dp"
+
+            android:onClick="skenovatKod"
+            android:text="@string/skenovat_qr" />
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="143dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="470dp"
+            android:layout_marginEnd="0dp"
+            android:onClick="odslatFormular"
+            android:text="@string/ok" />
+
     </RadioGroup>
-    <Button
-        android:id="@+id/btnSekenKodu"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="365dp"
-
-        android:onClick="skenovatKod"
-        android:text="@string/skenovat_qr" />
-
-    <Button
-        android:id="@+id/btnOK"
-        android:layout_width="145dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="470dp"
-        android:layout_marginEnd="0dp"
-        android:onClick="odslatFormular"
-        android:text="@string/ok" />
 
     <Button
         android:id="@+id/btnVymaz"
