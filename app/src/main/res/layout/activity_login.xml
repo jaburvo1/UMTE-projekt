@@ -4,31 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.UMTEprojekt.AppBarOverlay">
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="225dp"
+        android:layout_height="64dp"
+        android:ems="10"
+        android:text="email"
+        />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.UMTEprojekt.PopupOverlay" />
+    <EditText
+        android:id="@+id/txtPasword"
+        android:layout_width="225dp"
+        android:layout_height="64dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="110dp"
+        android:ems="10"
+        android:text="heslo" />
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/content_login" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="180dp"
+        android:onClick="prihlasit"
+        android:text="Prihlasit" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

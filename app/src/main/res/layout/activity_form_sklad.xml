@@ -94,18 +94,24 @@
             android:layout_marginStart="150dp"
             android:layout_marginTop="3dp"
             android:text="vyksladni" />
-
-        <Button
-            android:id="@+id/btnSekenKodu"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="365dp"
-
-            android:onClick="skenovatKod"
-            android:text="@string/skenovat_qr" />
+        <RadioButton
+            android:id="@+id/radioNovyDil"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="3dp"
+            android:text="novyDil" />
 
     </RadioGroup>
+    <Button
+        android:id="@+id/btnSekenKodu"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="365dp"
+
+        android:onClick="skenovatKod"
+        android:text="@string/skenovat_qr" />
 
     <Button
         android:id="@+id/btnOK"

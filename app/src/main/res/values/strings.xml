@@ -23,4 +23,7 @@
     <string name="ok">OK</string>
     <string name="odhlasit">Odhlasit</string>
     <string name="vypi_skladu">vypi skladu</string>
+    <string name="title_activity_admin">ActivityAdmin</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_reklamace">ActivityReklamace</string>
 </resources>
