@@ -9,8 +9,8 @@
     <item name="radioVyskladni" type="id" />
     <item name="btnSekenKodu" type="id" />
     <item name="btnOK" type="id" />
-    <item name="btnVymaz" type="id" />
-    <item name="btnLoginOut" type="id" />
+    <item name="btnVymaz" type="id"/>
+    <item name="btnLoginOut" type="id"/>
     <item name="btnVypis" type="id" />
     <item name="txtNazevDilu" type="id" />
 </resources>

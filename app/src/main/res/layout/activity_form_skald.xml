@@ -1,34 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityFormSklad">
 
-    <com.google.android.material.appbar.AppBarLayout
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.UMTEprojekt.AppBarOverlay">
+        android:layout_height="878dp"
+        app:layoutDescription="@xml/activity_form_skald_xml_constraintlayout_scene"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="center">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.UMTEprojekt.PopupOverlay" />
+            android:layout_height="match_parent">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-    <include layout="@layout/content_activity_form_sklad" />
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="81dp"
+                    android:orientation="horizontal">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+                    <Button
+                        android:id="@+id/btnLoginOut"
+                        android:layout_width="131dp"
+                        android:layout_height="47dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="48dp"
+                        android:onClick="logout"
+                        android:text="@string/odhlasit"
+                        app:layout_constraintBottom_toTopOf="@+id/txtNazevDilu"
+                        app:layout_constraintEnd_toStartOf="@+id/btnVypis"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+
+                    <Button
+                        android:id="@+id/btnVypis"
+                        android:layout_width="158dp"
+                        android:layout_height="51dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginBottom="44dp"
+                        android:onClick="vypisSklad"
+                        android:text="Vypis Sklad"
+                        app:layout_constraintBottom_toTopOf="@+id/txtNazevDilu"
+                        app:layout_constraintStart_toEndOf="@+id/btnLoginOut"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="MissingConstraints" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="537dp"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteY="878dp">
+
+                    <EditText
+                        android:id="@+id/txtNazevDilu"
+                        android:layout_width="352dp"
+                        android:layout_height="53dp"
+                        android:layout_marginBottom="20dp"
+
+                        android:text="@string/nazev_dilu"
+                        app:layout_constraintBottom_toTopOf="@+id/txtTypDiliu"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="29dp" />
+
+                    <EditText
+                        android:id="@+id/txtTypDiliu"
+                        android:layout_width="352dp"
+                        android:layout_height="53dp"
+                        android:layout_marginBottom="28dp"
+
+                        android:text="typ dilu"
+                        app:layout_constraintBottom_toTopOf="@+id/txtDruhDilu"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="29dp" />
+
+                    <EditText
+                        android:id="@+id/txtDruhDilu"
+                        android:layout_width="352dp"
+                        android:layout_height="53dp"
+                        android:layout_marginBottom="28dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="druh dilu"
+                        app:layout_constraintBottom_toTopOf="@+id/txtVyrobce"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="29dp" />
+
+                    <EditText
+                        android:id="@+id/txtVyrobce"
+                        android:layout_width="352dp"
+                        android:layout_height="53dp"
+                        android:layout_marginBottom="36dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="vyrobce"
+                        app:layout_constraintBottom_toTopOf="@+id/txtPocetKusu"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="29dp" />
+
+                    <EditText
+                        android:id="@+id/txtPocetKusu"
+                        android:layout_width="352dp"
+                        android:layout_height="53dp"
+                        android:layout_marginBottom="16dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="pocet kusu"
+                        app:layout_constraintBottom_toTopOf="@+id/btnSekenKodu"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="38dp" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup2"
+                        android:layout_width="203dp"
+                        android:layout_height="110dp"
+                        app:layout_constraintBottom_toTopOf="@+id/btnOK"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="66dp">
+
+                        <RadioButton
+                            android:id="@+id/radioVyskladni"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="naskladni" />
+
+                        <RadioButton
+                            android:id="@+id/radioNaskladni"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="vskladni" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="177dp"
+                    android:orientation="horizontal"
+                    tools:layout_editor_absoluteY="50dp">
+
+                    <Button
+                        android:id="@+id/btnVymaz"
+                        android:layout_width="144dp"
+                        android:layout_height="51dp"
+                        android:onClick="vymaz"
+                        android:text="Vymaz formular"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="204dp"
+                        tools:layout_editor_absoluteY="758dp" />
+
+                    <Button
+                        android:id="@+id/btnOK"
+                        android:layout_width="150dp"
+                        android:layout_height="57dp"
+                        android:onClick="odeslat"
+                        android:text="ok"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="38dp"
+                        tools:layout_editor_absoluteY="752dp" />
+
+                    <Button
+                        android:id="@+id/btnSekenKodu"
+                        android:layout_width="152dp"
+                        android:layout_height="67dp"
+                        android:layout_marginBottom="32dp"
+                        android:text="Nacti QR kod"
+                        app:layout_constraintBottom_toTopOf="@+id/radioGroup2"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="87dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </ScrollView>

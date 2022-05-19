@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ActivitySkladVypis">
 
     <Button
         android:id="@+id/btnLoginOut"
@@ -13,7 +13,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:onClick="logout"
-        android:text="Odhlasit" />
+        android:text="Odhlasit"
+        tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/btnformular"

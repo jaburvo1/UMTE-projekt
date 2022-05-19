@@ -4,28 +4,21 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.concurrent.CountDownLatch;
 
 
 public class MainActivity extends AppCompatActivity{
 
 
-    private TextView partName, partType, partSubtype, partManufacuter, partCouint;
-    private RadioButton importPart, exportPart;
-    private SkladService skladService;
+
     private LoginService loginService;
-    private int eventMode;
-    private String namePart, typePart, subtypePart, manufacture;
-    private int countPart;
-    private Dil dil;
     private int role;
-    // private ScannerLiveView camera;
-    //private TextView scannedTV;
-    private Button btnScenQR;
+    private String password;
+    private String email;
 
 
     public MainActivity() {
@@ -35,20 +28,23 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //setContentView(R.layout.activity_form_skald);
         loginService = new LoginService();
     }
 
-    public void prihlasit(View view) throws InterruptedException {
+    public void prihlasit(View view) {
         TextView emailTxt = (TextView) findViewById(R.id.txtEmail);
-        String email = emailTxt.getText().toString();
+        email = emailTxt.getText().toString();
         TextView passwordTxt = (TextView) findViewById(R.id.txtPasword);
-        String password = passwordTxt.getText().toString();
+         password = passwordTxt.getText().toString();
+        final CountDownLatch latch = new CountDownLatch(1);
         Thread thread = new Thread(new Runnable() {
 
             @Override
 
             public void run() {
                 try {
+                    System.out.println(email + password);
                    String roleString =loginService.login(email, password);
                 System.out.println(roleString);
                 role = Integer.parseInt(roleString);
@@ -57,21 +53,18 @@ public class MainActivity extends AppCompatActivity{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                latch.countDown();
             }
-        });
-        synchronized (this) {
-            this.wait(100);
-            thread.start();
-       //     System.out.println(role);
 
+        });
+            thread.start();
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-
-
-
         switch (role) {
-
-
             case 1:
                 setContentView(R.layout.activity_admin);
                 break;

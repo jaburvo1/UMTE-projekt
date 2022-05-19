@@ -1,15 +1,30 @@
 package com.example.umte_projekt;
 
+import static com.google.firebase.crashlytics.buildtools.reloc.com.google.common.net.HttpHeaders.USER_AGENT;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Header;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpResponse;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.entity.UrlEncodedFormEntity;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.DefaultHttpClient;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.message.BasicNameValuePair;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SkladService extends AppCompatActivity {
-    private String namePart;
-    private String urlHlavin = "http://localhost:8080";
+    private String urlHlavin = "http://imitgw.uhk.cz:59748";
     private String rezultStatus;
     private Header header;
 
@@ -18,54 +33,130 @@ public class SkladService extends AppCompatActivity {
 
     }
 
+    public String removeItemPiece(String namePart, int countPart) {
+        String url = urlHlavin+"/removeItemPiece";
 
-    public void eventDepot(int eventMode, Dil dil) {
-        if (eventMode == 1) {
-            System.out.println("naskladneno");
-            addItemPiece();
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+
+        // add header
+        post.setHeader("User-Agent", USER_AGENT);
+
+        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+        urlParameters.add(new BasicNameValuePair("nazevdilu", namePart));
+        urlParameters.add(new BasicNameValuePair("pocetKusu", countPart));//int
 
 
-        } else {
-            if (eventMode == 2) {
-                System.out.println("vyskladneno");
-                removeItemPiece();
-            } else {
-                newItem();
-
-            }
+        try {
+            post.setEntity(new UrlEncodedFormEntity(urlParameters));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
 
+        HttpResponse response = null;
+        try {
+            response = client.execute(post);
+
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            response.getStatusLine();
+        }
+        catch (Exception e){
+            response.getStatusLine();
+        }
+        System.out.println("Sending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + post.getEntity());
+        System.out.println("Response Code : " +
+                response.getStatusLine().getStatusCode());
+
+        BufferedReader rd = null;
+        try {
+            rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while (true) {
+            try {
+                if (!((line = rd.readLine()) != null)) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            result.append(line);
+        }
+
+        System.out.println(String.valueOf(result));
+        return result.toString();
+
+
     }
 
-    private void removeItemPiece() {
-        RequestQueue requestQueue = Volley.newRequestQueue(SkladService.this);
-        String url = urlHlavin + "/removeItemPiece";
+    public String addItemPiece(String namePart, int countPart){
+        String url = urlHlavin+"/addItemPiece";
+
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+
+        // add header
+        post.setHeader("User-Agent", USER_AGENT);
+
+        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+        urlParameters.add(new BasicNameValuePair("nazevdilu", namePart));
+        urlParameters.add(new BasicNameValuePair("pocetKusu", countPart));//int
+
+
+        try {
+            post.setEntity(new UrlEncodedFormEntity(urlParameters));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        HttpResponse response = null;
+        try {
+            response = client.execute(post);
+
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            response.getStatusLine();
+        }
+        catch (Exception e){
+            response.getStatusLine();
+        }
+        System.out.println("Sending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + post.getEntity());
+        System.out.println("Response Code : " +
+                response.getStatusLine().getStatusCode());
+
+        BufferedReader rd = null;
+        try {
+            rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while (true) {
+            try {
+                if (!((line = rd.readLine()) != null)) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            result.append(line);
+        }
+
+        System.out.println(String.valueOf(result));
+        return result.toString();
 
     }
 
-    private void addItemPiece(){
-        String url = urlHlavin + "/removeItemPiece";
-        /*OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        MediaType mediaType = MediaType.parse("text/plain");
-        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("nazevdilu","CPU")
-                .addFormDataPart("pocetKusu","10")
-                .build();
-        Request request = new Request.Builder()
-                .url("http://localhost:8080/addItemPiece")
-                .method("POST", body)
-                .build();
-        Response response = client.newCall(request).execute();*/
-        /*Unirest.setTimeouts(0, 0);
-        HttpResponse<String> response = Unirest.post("http://localhost:8080/addItemPiece")
-                .multiPartContent()
-                .field("nazevdilu", "CPU")
-                .field("pocetKusu", "10")
-                .asString();*/
 
-
-    }
 
 
     private void newItem() {
