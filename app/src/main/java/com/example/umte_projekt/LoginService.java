@@ -103,7 +103,7 @@ private int userId;
         System.out.println(password);
 
 
-        String url = "http://172.21.9.161:8080/loginApp";
+        String url = "http://10.135.253.131:8080/loginApp";
 
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);

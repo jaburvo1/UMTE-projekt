@@ -133,7 +133,7 @@
                         tools:layout_editor_absoluteX="38dp" />
 
                     <RadioGroup
-                        android:id="@+id/radioGroup2"
+                        android:id="@+id/radioGroup"
                         android:layout_width="203dp"
                         android:layout_height="110dp"
                         app:layout_constraintBottom_toTopOf="@+id/btnOK"
@@ -150,7 +150,13 @@
                             android:id="@+id/radioNaskladni"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="vskladni" />
+                            android:text="@string/vskladni" />
+
+                        <RadioButton
+                            android:id="@+id/radioNovyDil"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="noy dil" />
 
                     </RadioGroup>
 

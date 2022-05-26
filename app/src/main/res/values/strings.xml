@@ -14,5 +14,6 @@
     <string name="title_activity_form_skald">ActivityFormSkald</string>
     <string name="nazev_dilu" />
     <string name="odhlasit" />
+    <string name="vskladni">vskladni</string>
 
 </resources>

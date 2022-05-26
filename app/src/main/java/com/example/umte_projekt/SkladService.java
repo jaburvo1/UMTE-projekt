@@ -5,8 +5,6 @@ import static com.google.firebase.crashlytics.buildtools.reloc.com.google.common
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Header;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpResponse;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient;
@@ -27,6 +25,7 @@ public class SkladService extends AppCompatActivity {
     private String urlHlavin = "http://imitgw.uhk.cz:59748";
     private String rezultStatus;
     private Header header;
+    private String countPartString;
 
 
     public SkladService() {
@@ -34,6 +33,7 @@ public class SkladService extends AppCompatActivity {
     }
 
     public String removeItemPiece(String namePart, int countPart) {
+        countPartString =String.valueOf(countPart);
         String url = urlHlavin+"/removeItemPiece";
 
         HttpClient client = new DefaultHttpClient();
@@ -44,7 +44,7 @@ public class SkladService extends AppCompatActivity {
 
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("nazevdilu", namePart));
-        urlParameters.add(new BasicNameValuePair("pocetKusu", countPart));//int
+        urlParameters.add(new BasicNameValuePair("pocetKusu", countPartString));
 
 
         try {
@@ -96,6 +96,7 @@ public class SkladService extends AppCompatActivity {
     }
 
     public String addItemPiece(String namePart, int countPart){
+        countPartString =String.valueOf(countPart);
         String url = urlHlavin+"/addItemPiece";
 
         HttpClient client = new DefaultHttpClient();
@@ -106,7 +107,7 @@ public class SkladService extends AppCompatActivity {
 
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("nazevdilu", namePart));
-        urlParameters.add(new BasicNameValuePair("pocetKusu", countPart));//int
+        urlParameters.add(new BasicNameValuePair("pocetKusu", countPartString));//int
 
 
         try {
@@ -157,9 +158,69 @@ public class SkladService extends AppCompatActivity {
     }
 
 
+    public String newItem(String namePart, String typePart, String subtypePart, String parametrsPart, String manufacturePart, int countPart) {
+        countPartString =String.valueOf(countPart);
+        String url = urlHlavin+"/addItem";
+
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+
+        // add header
+        post.setHeader("User-Agent", USER_AGENT);
+
+        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+        urlParameters.add(new BasicNameValuePair("nazevdilu", namePart));
+        urlParameters.add(new BasicNameValuePair("druhDilu", typePart));
+        urlParameters.add(new BasicNameValuePair("typDilu", subtypePart));
+        urlParameters.add(new BasicNameValuePair("vyrobceDilu", manufacturePart));
+        urlParameters.add(new BasicNameValuePair("parametryDilu", parametrsPart));
+        urlParameters.add(new BasicNameValuePair("pocetKusu", countPartString));
 
 
-    private void newItem() {
+        try {
+            post.setEntity(new UrlEncodedFormEntity(urlParameters));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        HttpResponse response = null;
+        try {
+            response = client.execute(post);
+
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            response.getStatusLine();
+        }
+        catch (Exception e){
+            response.getStatusLine();
+        }
+        System.out.println("Sending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + post.getEntity());
+        System.out.println("Response Code : " +
+                response.getStatusLine().getStatusCode());
+
+        BufferedReader rd = null;
+        try {
+            rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while (true) {
+            try {
+                if (!((line = rd.readLine()) != null)) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            result.append(line);
+        }
+
+        System.out.println(String.valueOf(result));
+        return result.toString();
 
 
     }
