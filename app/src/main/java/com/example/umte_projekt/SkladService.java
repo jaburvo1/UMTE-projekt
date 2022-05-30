@@ -9,6 +9,7 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpResp
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.entity.UrlEncodedFormEntity;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpGet;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.DefaultHttpClient;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.message.BasicNameValuePair;
@@ -223,5 +224,54 @@ public class SkladService extends AppCompatActivity {
         return result.toString();
 
 
+    }
+
+    public String getItems() {
+
+        String url = urlHlavin+"/addItemPiece";
+
+        HttpClient client = new DefaultHttpClient();
+        HttpGet get = new HttpGet(url);
+
+        // add header
+        get.setHeader("User-Agent", USER_AGENT);
+
+
+        HttpResponse response = null;
+        try {
+            response = client.execute(get);
+
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            response.getStatusLine();
+        }
+        catch (Exception e){
+            response.getStatusLine();
+        }
+
+        response.getStatusLine().getStatusCode();
+
+        BufferedReader rd = null;
+        try {
+            rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while (true) {
+            try {
+                if (!((line = rd.readLine()) != null)) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            result.append(line);
+        }
+
+
+        return result.toString();
     }
 }

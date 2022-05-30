@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.umte_projekt">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Permission for camera -->
@@ -34,7 +35,8 @@
             android:name=".LoginService"
             android:exported="false"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.UMTEprojekt.NoActionBar" />
+            android:theme="@style/Theme.UMTEprojekt.NoActionBar"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

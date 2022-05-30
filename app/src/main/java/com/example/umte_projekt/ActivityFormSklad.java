@@ -1,8 +1,10 @@
 package com.example.umte_projekt;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,22 +31,8 @@ public class ActivityFormSklad extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_form_skald);
-       Button btnOk = findViewById(R.id.btnOK);
-         Button btnVymaz;
-        btnOk.setOnClickListener(new View.OnClickListener() {
-                                     public void onClick(View v) {
-                                         //  odeslatData();
-                                     }
-                                 });
-    btnVymaz = findViewById(R.id.btnVymaz);
-            btnVymaz.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    vymaz();
-                }
-            });
-
-/*
+        setContentView(R.layout.activity_form_skald);
+    }
     public void logout(View view) {
         System.out.println("ok");
         //LoginService loginService = new LoginService();
@@ -57,8 +45,8 @@ public class ActivityFormSklad extends AppCompatActivity {
     public void vypisSklad(View view) {
 
         setContentView(R.layout.activity_vypis_skladu);
-    }*/
-/*
+    }
+
     public void vymaz(View view) {
         namePartTxt = (TextView)findViewById(R.id.txtNazevDilu);
         namePartTxt.setText("");
@@ -111,6 +99,13 @@ public class ActivityFormSklad extends AppCompatActivity {
         }
         alertView(message);
     }
+
+    public void nactiQR(View view){
+
+        ScenerQR scenerQR = new ScenerQR();
+        String[]nactenaData=scenerQR.readQR();
+
+    }
     private void alertView(String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(ActivityFormSklad.this).create();
         alertDialog.setTitle("Alert");
@@ -122,10 +117,6 @@ public class ActivityFormSklad extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
-    }
-}*/
-
-
     }
 
     private boolean fillCheck() {
@@ -145,24 +136,4 @@ public class ActivityFormSklad extends AppCompatActivity {
         return ok;
     }
 
-
-    private void vymaz() {
-        namePartTxt = (TextView)findViewById(R.id.txtNazevDilu);
-        namePartTxt.setText("");
-
-        subtypePartTxt = (TextView)findViewById(R.id.txtTypDiliu);
-        subtypePartTxt.setText("");
-
-        typePartTxt = (TextView)findViewById(R.id.txtDruhDilu);
-        typePartTxt.setText("");
-
-        //parametrsPartTxt = (TextView) findViewById(R.id.txtParametry);
-        parametrsPartTxt.setText("");
-
-        manufacturePartTxt = (TextView)findViewById(R.id.txtVyrobce);
-        manufacturePartTxt.setText("");
-
-        countPartTxt = (TextView)findViewById(R.id.txtPocetKusu);
-        countPartTxt.setText("");
-    }
     }
