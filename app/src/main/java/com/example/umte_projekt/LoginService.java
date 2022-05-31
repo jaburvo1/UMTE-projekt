@@ -9,6 +9,7 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpResp
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.entity.UrlEncodedFormEntity;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpGet;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.DefaultHttpClient;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.message.BasicNameValuePair;
@@ -25,25 +26,21 @@ private int role;
 private int userId;
     public String logout() {
 
-        String url = "http://172.21.9.161:8080/logoutApp";
+        String url = "http://imitgw.uhk.cz:59748/logoutApp";
 
         HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(url);
+        HttpGet get = new HttpGet(url);
 
         // add header
-        post.setHeader("User-Agent", USER_AGENT);
+        get.setHeader("User-Agent", USER_AGENT);
 
-        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+        //List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 
-        try {
-            post.setEntity(new UrlEncodedFormEntity(urlParameters));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
 
         HttpResponse response = null;
         try {
-            response = client.execute(post);
+            response = client.execute(get);
 
 
         } catch (IOException e) {
@@ -54,7 +51,6 @@ private int userId;
             response.getStatusLine();
         }
         System.out.println("Sending 'POST' request to URL : " + url);
-        System.out.println("Post parameters : " + post.getEntity());
         System.out.println("Response Code : " +
                 response.getStatusLine().getStatusCode());
 
@@ -103,7 +99,7 @@ private int userId;
         System.out.println(password);
 
 
-        String url = "http://10.135.253.131:8080/loginApp";
+        String url = "http://imitgw.uhk.cz:59748/loginApp";
 
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);

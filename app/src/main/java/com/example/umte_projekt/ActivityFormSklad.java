@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -32,12 +33,17 @@ public class ActivityFormSklad extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_skald);
+        Button btnVymaz = (Button) findViewById(R.id.btnVymazFormular);
+        btnVymaz.setOnClickListener(view -> {
+            System.out.println("ok");
+            vymaz();
+        });
     }
     public void logout(View view) {
         System.out.println("ok");
-        //LoginService loginService = new LoginService();
+        LoginService loginService = new LoginService();
 
-        //loginService.logout();
+        loginService.logout();
 
         setContentView(R.layout.activity_login);
     }
@@ -47,7 +53,7 @@ public class ActivityFormSklad extends AppCompatActivity {
         setContentView(R.layout.activity_vypis_skladu);
     }
 
-    public void vymaz(View view) {
+    public void vymaz() {
         namePartTxt = (TextView)findViewById(R.id.txtNazevDilu);
         namePartTxt.setText("");
 

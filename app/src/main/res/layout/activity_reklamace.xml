@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ActivityReklamace">
 
     <TextView
         android:id="@+id/textView2"
@@ -15,12 +15,11 @@
         android:text="Funkce pro uzivatele v roli pracovnika rkelamce neni implementovano v aplikaci" />
 
     <Button
-        android:id="@+id/btnLoginOut"
+        android:id="@+id/btnLoginOutReklamace"
         android:layout_width="145dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:onClick="logout"
         android:text="Odhlasit"
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

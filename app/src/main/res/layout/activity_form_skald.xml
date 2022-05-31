@@ -170,10 +170,9 @@
                     tools:layout_editor_absoluteY="50dp">
 
                     <Button
-                        android:id="@+id/btnVymaz"
+                        android:id="@+id/btnVymazFormular"
                         android:layout_width="144dp"
                         android:layout_height="51dp"
-                        android:onClick="vymaz"
                         android:text="Vymaz formular"
                         tools:ignore="MissingConstraints"
                         tools:layout_editor_absoluteX="204dp"
