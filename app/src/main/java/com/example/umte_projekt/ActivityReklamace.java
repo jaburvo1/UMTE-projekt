@@ -2,6 +2,7 @@ package com.example.umte_projekt;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -46,7 +47,9 @@ public class ActivityReklamace extends AppCompatActivity{
 
            }
            else {
-               setContentView(R.layout.activity_login);
+               //setContentView(R.layout.activity_login);
+               Intent intent =new Intent(this,MainActivity.class);
+               startActivity(intent);
            }
 
         });

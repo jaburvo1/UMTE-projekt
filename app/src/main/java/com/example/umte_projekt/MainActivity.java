@@ -2,6 +2,7 @@ package com.example.umte_projekt;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -64,20 +65,31 @@ public class MainActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
+
+        Intent intent;
         switch (role) {
             case 1:
-                setContentView(R.layout.activity_admin);
+                //setContentView(R.layout.activity_admin);
+                intent=new Intent(this,ActivityAdmin.class);
+                startActivity(intent);
                 break;
                 case 2:
-                    setContentView(R.layout.activity_form_skald);
+                    //setContentView(R.layout.activity_form_skald);
+                    intent =new Intent(this,ActivityFormSklad.class);
+                    startActivity(intent);
                     break;
 
             case 3:
-                setContentView(R.layout.activity_reklamace);
+                //setContentView(R.layout.activity_reklamace);
+                intent =new Intent(this,ActivityReklamace.class);
+                startActivity(intent);
                 break;
             default:
                 alertView("spatne zadane prihlaasovaci udaje");
+                break;
+
         }
+
        // System.out.println(role);
     }
 

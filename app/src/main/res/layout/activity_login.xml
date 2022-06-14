@@ -8,13 +8,12 @@
 
     <EditText
         android:id="@+id/txtEmail"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="50dp"
         android:layout_width="225dp"
         android:layout_height="64dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
-        android:text="email"
-        />
+        android:hint="email" />
 
     <EditText
         android:id="@+id/txtPasword"
@@ -23,7 +22,8 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="110dp"
         android:ems="10"
-        android:inputType="textPassword"/>
+        android:hint="heslo"
+        android:inputType="textPassword" />
         android:text="heslo" />
 
     <Button

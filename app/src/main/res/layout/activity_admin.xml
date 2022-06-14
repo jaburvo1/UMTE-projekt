@@ -6,28 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ActivityAdmin">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.UMTEprojekt.AppBarOverlay">
+    <TextView
+        android:id="@+id/textAdmin"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="80dp"
+        android:text="Funkce pro uzivatele v roli admin neni implementovano v aplikaci" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.UMTEprojekt.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
+    <Button
+        android:id="@+id/btnLoginOutAdmin"
+        android:layout_width="145dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Odhlasit"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,13 +2,15 @@ package com.example.umte_projekt;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.concurrent.CountDownLatch;
 
 public class ActivityFormSklad extends AppCompatActivity {
 
@@ -21,8 +23,9 @@ public class ActivityFormSklad extends AppCompatActivity {
     private SkladService skladService = new SkladService();
     private String namePart;
     private int partCount;
-    private String typePart, subtypePart, parametrsPart, manufacturePart;
+    private String typePart, subtypePart, parametrsPart, manufacturePart, countPartString;
     private TextView parametrsPartTxt;
+    private String loginOut;
 
     public ActivityFormSklad() {
 
@@ -33,80 +36,140 @@ public class ActivityFormSklad extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_skald);
-        Button btnVymaz = (Button) findViewById(R.id.btnVymazFormular);
+        Button btnVymaz =  findViewById(R.id.btnVymazFormular);
         btnVymaz.setOnClickListener(view -> {
-            System.out.println("ok");
+            //System.out.println("ok");
             vymaz();
         });
+        Button btnLoginOut = findViewById(R.id.btnLoginOutSkladForm);
+        btnLoginOut.setOnClickListener(view -> {
+            logout();
+        });
+
+        Button btnShowDepot = findViewById(R.id.btnVypisSklad);
+        btnShowDepot .setOnClickListener(view -> {
+            vypisSklad();
+        });
+
+        Button btnsendtData = findViewById(R.id.btnVypisSklad);
+        btnsendtData .setOnClickListener(view -> {
+            odeslatData();
+        });
+
+        Button btnReadQR = findViewById(R.id.btnVypisSklad);
+        btnReadQR .setOnClickListener(view -> {
+            nactiQR();
+        });
+
     }
-    public void logout(View view) {
-        System.out.println("ok");
-        LoginService loginService = new LoginService();
+    private void logout() {
+        loginOut="";
+        final CountDownLatch latch = new CountDownLatch(1);
+        Thread thread = new Thread(() -> {
+            try {
+                LoginService loginService = new LoginService();
+                loginOut =loginService.logout();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            latch.countDown();
+        });
+        thread.start();
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//zde ošettřit výjimku pro neuspesne odhlaseni
+        //if(loginOut.equals("")){
+        //    alertView("Chyba odhláseni");
 
-        loginService.logout();
-
-        setContentView(R.layout.activity_login);
+    //    }
+       // else {
+            //setContentView(R.layout.activity_login);
+            Intent intent =new Intent(this,MainActivity.class);
+            startActivity(intent);
+       // }
     }
+    
 
-    public void vypisSklad(View view) {
-
-        setContentView(R.layout.activity_vypis_skladu);
+    private void vypisSklad() {
+        Intent intent =new Intent(this,ActivitySkladVypis.class);
+        startActivity(intent);
     }
 
     public void vymaz() {
-        namePartTxt = (TextView)findViewById(R.id.txtNazevDilu);
+        namePartTxt = findViewById(R.id.txtNazevDilu);
         namePartTxt.setText("");
 
-        subtypePartTxt = (TextView)findViewById(R.id.txtTypDiliu);
+        subtypePartTxt = findViewById(R.id.txtTypDiliu);
         subtypePartTxt.setText("");
 
-        typePartTxt = (TextView)findViewById(R.id.txtDruhDilu);
+        typePartTxt = findViewById(R.id.txtDruhDilu);
         typePartTxt.setText("");
 
-        //parametrsPartTxt = (TextView) findViewById(R.id.txtParametry);
+       parametrsPartTxt = findViewById(R.id.txtParametryDilu);
         parametrsPartTxt.setText("");
 
-        manufacturePartTxt = (TextView)findViewById(R.id.txtVyrobce);
+        manufacturePartTxt = findViewById(R.id.txtVyrobce);
         manufacturePartTxt.setText("");
 
-        countPartTxt = (TextView)findViewById(R.id.txtPocetKusu);
+        countPartTxt = findViewById(R.id.txtPocetKusu);
         countPartTxt.setText("");
     }
 
-    public void odeslatData(View view) {
-        namePart = namePartTxt.getText().toString();
-        partCount = Integer.parseInt(countPartTxt.getText().toString());
-        RadioGroup radioGroup = findViewById(R.id.radioGroup);
-        String message = "";
-        if(partCount>0) {
-            switch (radioGroup.getCheckedRadioButtonId()) {
-                case R.id.radioNaskladni:
-                    message = skladService.addItemPiece(namePart, partCount);
-                    break;
-                case R.id.radioVyskladni:
-                    message = skladService.removeItemPiece(namePart, partCount);
-                    break;
-                case R.id.radioNovyDil:
-                   boolean ok = fillCheck();
-                    if (ok == true) {
-                        message = skladService.newItem(namePart, typePart, subtypePart, parametrsPart, manufacturePart, partCount);
-                    }
-                    else{
-                        message = "Pro noy dil musi byt vyplnena vsechna pole ve formulari";
-                    }
-                default:
-                    message = "Nebyl vbrana zadna možnost akce";
-                    break;
+   private void odeslatData() {
 
-            }
-        }
-        else {
-            message = "Pocet dilu mus byt vetsi nez 0";
-        }
+       String message = "";
+       boolean ok;
+       ok = fillCheck(3);
+       if(ok==true) {
+           partCount = Integer.parseInt(countPartString);
+           RadioGroup radioGroup = findViewById(R.id.radioGroup);
+
+           if (partCount > 0) {
+
+               switch (radioGroup.getCheckedRadioButtonId()) {
+                   case R.id.radioNaskladni:
+                       ok = fillCheck(1);
+                       if (ok == true) {
+                           message = skladService.addItemPiece(namePart, partCount);
+                       } else {
+                           message = "Pro naskladneni dil musi byt vyplnena pole nazev dilu a pocet kusu";
+                       }
+                       break;
+                   case R.id.radioVyskladni:
+                       ok = fillCheck(1);
+                       if (ok == true) {
+                           message = skladService.removeItemPiece(namePart, partCount);
+                       } else {
+                           message = "Pro vyskladneni dil musi byt vyplnena pole nazev dilu a pocet kusu";
+
+                       }
+                       break;
+                   case R.id.radioNovyDil:
+                       ok = fillCheck(2);
+                       if (ok == true) {
+                           message = skladService.newItem(namePart, typePart, subtypePart, parametrsPart, manufacturePart, partCount);
+                       } else {
+                           message = "Pro noy dil musi byt vyplnena vsechna pole ve formulari";
+                       }
+                   default:
+                       message = "Nebyl vbrana zadna možnost akce";
+                       break;
+
+               }
+           } else {
+               message = "Pocet dilu mus byt vetsi nez 0";
+           }
+       }
+       else{
+           message="Nevyplneno pole pocet kusu";
+       }
         alertView(message);
     }
 
-    public void nactiQR(View view){
+    private void nactiQR(){
 
         ScenerQR scenerQR = new ScenerQR();
         String[]nactenaData=scenerQR.readQR();
@@ -125,20 +188,43 @@ public class ActivityFormSklad extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private boolean fillCheck() {
-        boolean ok;
-        typePart = typePartTxt.getText().toString();
-        subtypePart =subtypePartTxt.getText().toString();
+    private boolean fillCheck(int modeFillCheck) {
+        boolean ok = false;
+        switch (modeFillCheck) {
+            case 1:
+                namePart = namePartTxt.getText().toString();
+                if (namePart.equals("")||namePart.equals(" ")){
+                    ok = false;
+                }
+                else {
+                    ok = true;
+                }
+                break;
+
+            case 2:
+            namePart = namePartTxt.getText().toString();
+            typePart = typePartTxt.getText().toString();
+        subtypePart = subtypePartTxt.getText().toString();
         parametrsPart = parametrsPartTxt.getText().toString();
         manufacturePart = manufacturePartTxt.getText().toString();
-        if(typePart.equals("")|| typePart.equals(" ")||subtypePart.equals("")||
-                subtypePart.equals(" ")||parametrsPart.equals("")||parametrsPart.equals(" ")||
-                manufacturePart.equals("")||manufacturePart.equals(" ")){
-            ok=false;
+        if (namePart.equals("")||namePart.equals(" ")||typePart.equals("") || typePart.equals(" ") || subtypePart.equals("") ||
+                subtypePart.equals(" ") || parametrsPart.equals("") || parametrsPart.equals(" ") ||
+                manufacturePart.equals("") || manufacturePart.equals(" ")) {
+            ok = false;
+        } else {
+            ok = true;
         }
-        else{
-            ok=true;
-        }
+        break;
+            case 3:
+                countPartString = countPartTxt.getText().toString();
+                if(countPartString.equals("")||countPartString.equals(" ")){
+                    ok=false;
+                }
+                else {
+                    ok = true;
+                }
+                break;
+    }
         return ok;
     }
 
