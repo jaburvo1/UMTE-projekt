@@ -1,5 +1,4 @@
 package com.example.umte_projekt;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +25,8 @@ public class ActivityFormSklad extends AppCompatActivity {
     private String typePart, subtypePart, parametrsPart, manufacturePart, countPartString;
     private TextView parametrsPartTxt;
     private String loginOut;
+    private CountDownLatch latch;
+    private String message;
 
     public ActivityFormSklad() {
 
@@ -36,6 +37,7 @@ public class ActivityFormSklad extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_skald);
+        conectionById();
         Button btnVymaz =  findViewById(R.id.btnVymazFormular);
         btnVymaz.setOnClickListener(view -> {
             //System.out.println("ok");
@@ -51,8 +53,9 @@ public class ActivityFormSklad extends AppCompatActivity {
             vypisSklad();
         });
 
-        Button btnsendtData = findViewById(R.id.btnVypisSklad);
+        Button btnsendtData = findViewById(R.id.btnOK);
         btnsendtData .setOnClickListener(view -> {
+            System.out.println("ok");
             odeslatData();
         });
 
@@ -61,7 +64,22 @@ public class ActivityFormSklad extends AppCompatActivity {
             nactiQR();
         });
 
+        Button btnOK= findViewById(R.id.btnVypisSklad);
+        btnOK .setOnClickListener(view -> {
+        });
+
     }
+
+    private void conectionById() {
+        namePartTxt = findViewById(R.id.txtNazevDilu);
+        subtypePartTxt = findViewById(R.id.txtTypDiliu);
+        typePartTxt = findViewById(R.id.txtDruhDilu);
+        parametrsPartTxt = findViewById(R.id.txtParametryDilu);
+        parametrsPartTxt = findViewById(R.id.txtParametryDilu);
+        manufacturePartTxt = findViewById(R.id.txtVyrobce);
+        countPartTxt = findViewById(R.id.txtPocetKusu);
+    }
+
     private void logout() {
         loginOut="";
         final CountDownLatch latch = new CountDownLatch(1);
@@ -99,75 +117,108 @@ public class ActivityFormSklad extends AppCompatActivity {
     }
 
     public void vymaz() {
-        namePartTxt = findViewById(R.id.txtNazevDilu);
+
         namePartTxt.setText("");
-
-        subtypePartTxt = findViewById(R.id.txtTypDiliu);
         subtypePartTxt.setText("");
-
-        typePartTxt = findViewById(R.id.txtDruhDilu);
         typePartTxt.setText("");
-
-       parametrsPartTxt = findViewById(R.id.txtParametryDilu);
         parametrsPartTxt.setText("");
-
-        manufacturePartTxt = findViewById(R.id.txtVyrobce);
         manufacturePartTxt.setText("");
-
-        countPartTxt = findViewById(R.id.txtPocetKusu);
         countPartTxt.setText("");
     }
 
    private void odeslatData() {
+        System.out.println("ok");
+               boolean ok =false;
+               ok = fillCheck(3);
+               if (ok == true) {
+                   partCount = Integer.parseInt(countPartString);
+                   RadioGroup radioGroup = findViewById(R.id.radioGroup);
 
-       String message = "";
-       boolean ok;
-       ok = fillCheck(3);
-       if(ok==true) {
-           partCount = Integer.parseInt(countPartString);
-           RadioGroup radioGroup = findViewById(R.id.radioGroup);
+                   if (partCount > 0) {
 
-           if (partCount > 0) {
+                       switch (radioGroup.getCheckedRadioButtonId()) {
+                           case R.id.radioNaskladni:
+                               ok = fillCheck(1);
+                               if (ok == true) {
+                                   final CountDownLatch latch = new CountDownLatch(2);
+                                   Thread thread = new Thread(new Runnable() {
+                                       @Override
 
-               switch (radioGroup.getCheckedRadioButtonId()) {
-                   case R.id.radioNaskladni:
-                       ok = fillCheck(1);
-                       if (ok == true) {
-                           message = skladService.addItemPiece(namePart, partCount);
-                       } else {
-                           message = "Pro naskladneni dil musi byt vyplnena pole nazev dilu a pocet kusu";
+                                       public void run() {
+                                           try {
+                                   message=skladService.addItemPiece(namePart, partCount);
+                                           } catch (Exception e) {
+                                               e.printStackTrace();
+                                           }
+                                           latch.countDown();
+                                       }
+
+                                   });
+                                   thread.start();
+                                   try {
+                                       latch.await();
+                                   } catch (InterruptedException e) {
+                                       e.printStackTrace();
+                                   }
+                               } else {
+                                   message="Pro naskladneni dil musi byt vyplnena pole nazev dilu a pocet kusu";
+                               }
+                               break;
+                           case R.id.radioVyskladni:
+                               ok = fillCheck(1);
+                               if (ok == true) {
+
+                                   message=skladService.removeItemPiece(namePart, partCount);
+                               } else {
+                                   message="Pro vyskladneni dil musi byt vyplnena pole nazev dilu a pocet kusu";
+
+                               }
+                               break;
+                           case R.id.radioNovyDil:
+                               ok = fillCheck(2);
+                               if (ok == true) {
+                                   final CountDownLatch latch = new CountDownLatch(3);
+                                   Thread thread = new Thread(new Runnable() {
+                                       @Override
+
+                                       public void run() {
+                                           try {
+                                               message=skladService.newItem(namePart, typePart, subtypePart, parametrsPart, manufacturePart, partCount);
+
+                                           } catch (Exception e) {
+                                               e.printStackTrace();
+                                           }
+                                           latch.countDown();
+                                       }
+
+                                   });
+                                   thread.start();
+                                   try {
+                                       latch.await();
+                                   } catch (InterruptedException e) {
+                                       e.printStackTrace();
+                                   }
+
+
+
+                               } else {
+                                   message="Pro noy dil musi byt vyplnena vsechna pole ve formulari";
+                               }
+                           default:
+                               message="Nebyl vbrana zadna možnost akce";
+                               break;
+
                        }
-                       break;
-                   case R.id.radioVyskladni:
-                       ok = fillCheck(1);
-                       if (ok == true) {
-                           message = skladService.removeItemPiece(namePart, partCount);
-                       } else {
-                           message = "Pro vyskladneni dil musi byt vyplnena pole nazev dilu a pocet kusu";
-
-                       }
-                       break;
-                   case R.id.radioNovyDil:
-                       ok = fillCheck(2);
-                       if (ok == true) {
-                           message = skladService.newItem(namePart, typePart, subtypePart, parametrsPart, manufacturePart, partCount);
-                       } else {
-                           message = "Pro noy dil musi byt vyplnena vsechna pole ve formulari";
-                       }
-                   default:
-                       message = "Nebyl vbrana zadna možnost akce";
-                       break;
-
+                   } else {
+                       message="Pocet dilu mus byt vetsi nez 0";
+                   }
+               } else {
+                   message="Nevyplneno pole pocet kusu";
                }
-           } else {
-               message = "Pocet dilu mus byt vetsi nez 0";
+               alertView(message);
            }
-       }
-       else{
-           message="Nevyplneno pole pocet kusu";
-       }
-        alertView(message);
-    }
+
+
 
     private void nactiQR(){
 
@@ -217,6 +268,7 @@ public class ActivityFormSklad extends AppCompatActivity {
         break;
             case 3:
                 countPartString = countPartTxt.getText().toString();
+                alertView(countPartString);
                 if(countPartString.equals("")||countPartString.equals(" ")){
                     ok=false;
                 }

@@ -69,7 +69,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="match_parent"
-                    android:layout_height="537dp"
+                    android:layout_height="651dp"
                     android:orientation="vertical"
                     tools:layout_editor_absoluteY="878dp">
 
@@ -159,12 +159,6 @@
                             android:text="naskladni" />
 
                         <RadioButton
-                            android:id="@+id/radioNaskladni"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vskladni" />
-
-                        <RadioButton
                             android:id="@+id/radioNovyDil"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -194,7 +188,6 @@
                         android:id="@+id/btnOK"
                         android:layout_width="150dp"
                         android:layout_height="57dp"
-                        android:onClick="odeslatData"
                         android:text="ok"
                         tools:ignore="MissingConstraints"
                         tools:layout_editor_absoluteX="38dp"
@@ -210,6 +203,12 @@
                         app:layout_constraintBottom_toTopOf="@+id/radioGroup2"
                         tools:ignore="MissingConstraints"
                         tools:layout_editor_absoluteX="87dp" />
+
+                    <RadioButton
+                        android:id="@+id/radioNaskladni"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vskladni" />
 
                 </LinearLayout>
             </LinearLayout>
