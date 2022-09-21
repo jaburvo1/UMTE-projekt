@@ -201,17 +201,22 @@ public class SkladService extends AppCompatActivity {
         System.out.println("Response Code : " +
                 response.getStatusLine().getStatusCode());
 
-        BufferedReader rd = null;
+        String result ="";
+       if(response.getStatusLine().getStatusCode()==202){
+           result ="Dil pridan do skladu";
+       }
+
+        /* BufferedReader rd = null;
         try {
             rd = new BufferedReader(
                     new InputStreamReader(response.getEntity().getContent()));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        StringBuffer result = new StringBuffer();
-        String line = "";
-        while (true) {
+        //StringBuffer result = new StringBuffer();
+        //String line = "";
+        /*while (true) {
             try {
                 if (!((line = rd.readLine()) != null)) break;
             } catch (IOException e) {
@@ -219,9 +224,9 @@ public class SkladService extends AppCompatActivity {
             }
             result.append(line);
         }
-
-        System.out.println(String.valueOf(result));
-        return result.toString();
+*/
+        //System.out.println(String.valueOf(result));
+        return result;
 
 
     }

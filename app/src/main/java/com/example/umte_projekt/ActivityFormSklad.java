@@ -184,6 +184,7 @@ public class ActivityFormSklad extends AppCompatActivity {
                                        public void run() {
                                            try {
                                                message=skladService.newItem(namePart, typePart, subtypePart, parametrsPart, manufacturePart, partCount);
+                                               vymaz();
 
                                            } catch (Exception e) {
                                                e.printStackTrace();
