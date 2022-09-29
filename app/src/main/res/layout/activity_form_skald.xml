@@ -147,7 +147,7 @@
                     <RadioGroup
                         android:id="@+id/radioGroup"
                         android:layout_width="203dp"
-                        android:layout_height="110dp"
+                        android:layout_height="157dp"
                         app:layout_constraintBottom_toTopOf="@+id/btnOK"
                         tools:ignore="MissingConstraints"
                         tools:layout_editor_absoluteX="66dp">
@@ -156,7 +156,15 @@
                             android:id="@+id/radioVyskladni"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="naskladni" />
+                            android:text="vyskladni" />
+
+
+                        <RadioButton
+                            android:id="@id/radioNaskladni"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="nasladni"
+                            tools:ignore="DuplicateIds" />
 
                         <RadioButton
                             android:id="@+id/radioNovyDil"

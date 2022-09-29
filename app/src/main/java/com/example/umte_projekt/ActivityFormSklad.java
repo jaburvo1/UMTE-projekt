@@ -140,13 +140,14 @@ public class ActivityFormSklad extends AppCompatActivity {
                            case R.id.radioNaskladni:
                                ok = fillCheck(1);
                                if (ok == true) {
-                                   final CountDownLatch latch = new CountDownLatch(2);
+                                   final CountDownLatch latch = new CountDownLatch(1);
                                    Thread thread = new Thread(new Runnable() {
                                        @Override
 
                                        public void run() {
                                            try {
                                    message=skladService.addItemPiece(namePart, partCount);
+                                               vymaz();
                                            } catch (Exception e) {
                                                e.printStackTrace();
                                            }
@@ -168,7 +169,27 @@ public class ActivityFormSklad extends AppCompatActivity {
                                ok = fillCheck(1);
                                if (ok == true) {
 
-                                   message=skladService.removeItemPiece(namePart, partCount);
+                                   final CountDownLatch latch = new CountDownLatch(1);
+                                   Thread thread = new Thread(new Runnable() {
+                                       @Override
+
+                                       public void run() {
+                                           try {
+                                               message=skladService.removeItemPiece(namePart, partCount);
+                                               vymaz();
+                                           } catch (Exception e) {
+                                               e.printStackTrace();
+                                           }
+                                           latch.countDown();
+                                       }
+
+                                   });
+                                   thread.start();
+                                   try {
+                                       latch.await();
+                                   } catch (InterruptedException e) {
+                                       e.printStackTrace();
+                                   }
                                } else {
                                    message="Pro vyskladneni dil musi byt vyplnena pole nazev dilu a pocet kusu";
 
@@ -177,13 +198,14 @@ public class ActivityFormSklad extends AppCompatActivity {
                            case R.id.radioNovyDil:
                                ok = fillCheck(2);
                                if (ok == true) {
-                                   final CountDownLatch latch = new CountDownLatch(3);
+                                   final CountDownLatch latch = new CountDownLatch(1);
                                    Thread thread = new Thread(new Runnable() {
                                        @Override
 
                                        public void run() {
                                            try {
                                                message=skladService.newItem(namePart, typePart, subtypePart, parametrsPart, manufacturePart, partCount);
+                                              // alertView(message);
                                                vymaz();
 
                                            } catch (Exception e) {
@@ -206,7 +228,7 @@ public class ActivityFormSklad extends AppCompatActivity {
                                    message="Pro noy dil musi byt vyplnena vsechna pole ve formulari";
                                }
                            default:
-                               message="Nebyl vbrana zadna možnost akce";
+                              // message="Nebyl vbrana zadna možnost akce";
                                break;
 
                        }
@@ -224,8 +246,13 @@ public class ActivityFormSklad extends AppCompatActivity {
     private void nactiQR(){
 
         ScenerQR scenerQR = new ScenerQR();
-        String[]nactenaData=scenerQR.readQR();
+        String[] nactenaData = scenerQR.readQR();
 
+        namePartTxt.setText(nactenaData[1]);
+        typePartTxt.setText(nactenaData[3]);
+        subtypePartTxt.setText(nactenaData[5]);
+        parametrsPartTxt.setText(nactenaData[7]);
+        manufacturePartTxt.setText(nactenaData[9]);
     }
     private void alertView(String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(ActivityFormSklad.this).create();
@@ -269,7 +296,7 @@ public class ActivityFormSklad extends AppCompatActivity {
         break;
             case 3:
                 countPartString = countPartTxt.getText().toString();
-                alertView(countPartString);
+                //alertView(countPartString);
                 if(countPartString.equals("")||countPartString.equals(" ")){
                     ok=false;
                 }
@@ -282,3 +309,4 @@ public class ActivityFormSklad extends AppCompatActivity {
     }
 
     }
+

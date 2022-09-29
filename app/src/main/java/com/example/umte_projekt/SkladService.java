@@ -71,6 +71,11 @@ public class SkladService extends AppCompatActivity {
         System.out.println("Response Code : " +
                 response.getStatusLine().getStatusCode());
 
+        String result ="";
+        if(response.getStatusLine().getStatusCode()==200){
+            result ="Dil vyskladnen";
+        }
+/*
         BufferedReader rd = null;
         try {
             rd = new BufferedReader(
@@ -88,10 +93,10 @@ public class SkladService extends AppCompatActivity {
                 e.printStackTrace();
             }
             result.append(line);
-        }
+        }*/
 
-        System.out.println(String.valueOf(result));
-        return result.toString();
+        //System.out.println(String.valueOf(result));
+        return result;  //result.toString();
 
 
     }
@@ -134,6 +139,11 @@ public class SkladService extends AppCompatActivity {
         System.out.println("Response Code : " +
                 response.getStatusLine().getStatusCode());
 
+        String result ="";
+        if(response.getStatusLine().getStatusCode()==200){
+            result ="Dil naskladnen";
+        }
+        /*
         BufferedReader rd = null;
         try {
             rd = new BufferedReader(
@@ -152,9 +162,11 @@ public class SkladService extends AppCompatActivity {
             }
             result.append(line);
         }
+        */
 
-        System.out.println(String.valueOf(result));
-        return result.toString();
+
+        //System.out.println(String.valueOf(result));
+        return result; //result.toString();
 
     }
 
@@ -202,7 +214,7 @@ public class SkladService extends AppCompatActivity {
                 response.getStatusLine().getStatusCode());
 
         String result ="";
-       if(response.getStatusLine().getStatusCode()==202){
+       if(response.getStatusLine().getStatusCode()==200){
            result ="Dil pridan do skladu";
        }
 
